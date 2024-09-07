@@ -1,3 +1,4 @@
+import CommentSkeleton from '@/components/comment-skeleton';
 import { Button } from '@/components/ui/button';
 import {
 	Card,
@@ -9,25 +10,35 @@ import {
 } from '@/components/ui/card';
 import { formatDate, pluralize } from '@/lib/utils';
 import { useState } from 'react';
-
-type Props = {
+export type Comment = {
 	by: string;
 	id: number;
 	kids: number[];
 	text: string;
 	time: number;
+	deleted?: boolean;
 };
+
 export default function CommentCard({
 	by,
 	id,
 	kids: kidsIds,
 	text,
 	time,
-}: Props) {
+	deleted,
+}: Comment) {
 	const formattedDate = formatDate(new Date(time * 1000));
 	const [showReplies, setShowReplies] = useState(false);
-	const [kidsData, setKidsData] = useState<Props[]>([]);
+	const [kidsData, setKidsData] = useState<Comment[]>([]);
 	const [loading, setLoading] = useState(false);
+	if (deleted)
+		return (
+			<Card className='border-0 border-l-2 border-destructive m-1'>
+				<CardHeader>
+					<CardDescription>Comment deleted</CardDescription>
+				</CardHeader>
+			</Card>
+		);
 	const handleLoadReplies = async () => {
 		if (showReplies) return setShowReplies(false);
 		try {
@@ -57,7 +68,7 @@ export default function CommentCard({
 				<CardDescription>{formattedDate}</CardDescription>
 			</CardHeader>
 			<CardContent>{text}</CardContent>
-			{kidsIds && kidsIds.length > 0 && (
+			{kidsIds?.length > 0 && (
 				<CardFooter>
 					<Button onClick={handleLoadReplies}>
 						{!showReplies
@@ -70,7 +81,7 @@ export default function CommentCard({
 					</Button>
 				</CardFooter>
 			)}
-			{loading && <div className='ml-4'>Loading...</div>}
+			{loading && <CommentSkeleton />}
 			{showReplies && loading === false && (
 				<div className='ml-4'>
 					{kidsData.map((kid) => {

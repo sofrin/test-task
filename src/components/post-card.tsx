@@ -11,10 +11,10 @@ type Props = {
 	id: number;
 	title: string;
 	author: string;
-	date: Date;
+	time: number;
 	rating: number;
 	totalComments: number;
-	url: string;
+	url?: string;
 	page?: boolean;
 };
 
@@ -22,13 +22,13 @@ export default function PostCard({
 	id,
 	title,
 	author,
-	date,
+	time,
 	rating,
 	totalComments,
 	url,
 	page,
 }: Props) {
-	const formattedDate = formatDate(date);
+	const formattedDate = formatDate(new Date(time ?? 1 * 1000));
 	console.log(`id`, id);
 
 	return (
@@ -36,15 +36,19 @@ export default function PostCard({
 			<CardHeader className='p-3'>
 				<CardTitle>
 					<AnimatedLink to={page ? `#` : `/posts/${id}`}>{title} </AnimatedLink>
-					{!page ? (
-						<span className='text-muted-foreground font-light text-sm'>
-							({url.split('/')[2]})
-						</span>
-					) : (
-						<a href={`${url}`}>
-							<p className='text-muted-foreground font-light text-sm'>{url}</p>
-						</a>
-					)}
+					{url ? (
+						!page ? (
+							<span className='text-muted-foreground font-light text-sm'>
+								({url?.split('/')[2]})
+							</span>
+						) : (
+							<a href={`${url}`}>
+								<p className='text-muted-foreground font-light text-sm'>
+									{url}
+								</p>
+							</a>
+						)
+					) : null}
 				</CardTitle>
 				<CardDescription>
 					{rating} points by {author} {formattedDate} |{' '}
