@@ -1,7 +1,14 @@
+import { ThemeProvider } from '@/components/theme-provider';
+
 function App() {
 	return (
 		<>
-			<div className='text-3xl'>Hello Vite + React!</div>
+			<ThemeProvider
+				defaultTheme='dark'
+				storageKey='vite-ui-theme'
+			>
+				<div> Hello World ! </div>
+			</ThemeProvider>
 		</>
 	);
 }
