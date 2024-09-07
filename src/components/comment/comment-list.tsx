@@ -8,7 +8,10 @@ export default function CommentList() {
 	return (
 		<>
 			{comments?.map((comment) => (
-				<CommentCard {...comment} />
+				<CommentCard
+					key={comment.id}
+					{...comment}
+				/>
 			))}
 		</>
 	);

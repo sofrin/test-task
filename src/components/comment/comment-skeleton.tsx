@@ -9,21 +9,21 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CommentSkeleton() {
 	return (
-		<Card className='border-0 border-l-2 border-primary m-1 h-48'>
-			<CardHeader className='h-full'>
-				<CardTitle>
-					<Skeleton className='w-1/12 h-full' />
+		<Card className='border-0 border-l-2 border-primary m-1 h-48 w-full'>
+			<CardHeader className=' w-full'>
+				<CardTitle className='w-full  '>
+					<Skeleton className='w-1/12 h-6' />
 				</CardTitle>
-				<div className='h-full'>
-					<Skeleton className='w-1/12 h-full' />
+				<div className='w-1/2'>
+					<Skeleton className='w-1/12  h-4' />
 				</div>
 			</CardHeader>
-			<CardContent>
-				<Skeleton className='w-1/5 h-full' />
+			<CardContent className=' w-full'>
+				<Skeleton className='w-1/2 h-12' />
 			</CardContent>
 
-			<CardFooter>
-				<Skeleton className='w-1/12 h-full' />
+			<CardFooter className=' w-full'>
+				<Skeleton className='w-1/12 h-4' />
 			</CardFooter>
 		</Card>
 	);
