@@ -1,4 +1,4 @@
-import CommentSkeleton from '@/components/comment-skeleton';
+import CommentSkeleton from '@/components/comment/comment-skeleton';
 import { Button } from '@/components/ui/button';
 import {
 	Card,

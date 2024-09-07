@@ -1,11 +1,11 @@
-import PostCard from '@/components/post-card';
-import { type Comment } from '../components/comment-card';
+import PostCard from '@/components/post/post-card';
+import { type Comment } from '../components/comment/comment-card';
 import { defer, useLoaderData, Await } from 'react-router-dom';
 import type { Post } from '@/routes/home';
 import { Suspense } from 'react';
-import PostSkeleton from '@/components/post-skeleton';
-import CommentSkeleton from '@/components/comment-skeleton';
-import CommentList from '@/components/comment-list';
+import PostSkeleton from '@/components/post/post-skeleton';
+import CommentSkeleton from '@/components/comment/comment-skeleton';
+import CommentList from '@/components/comment/comment-list';
 /// @ts-expect-error idk why typing params throws error in main
 export async function loader({ params }) {
 	const data = fetch(

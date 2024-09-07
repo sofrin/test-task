@@ -1,4 +1,4 @@
-import PostCard from '@/components/post-card';
+import PostCard from '@/components/post/post-card';
 import type { Post } from '@/routes/home';
 import { useAsyncValue } from 'react-router-dom';
 

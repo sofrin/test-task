@@ -1,5 +1,5 @@
-import PostSkeleton from '@/components/post-skeleton';
-import PostsList from '@/components/posts-list';
+import PostSkeleton from '@/components/post/post-skeleton';
+import PostsList from '@/components/post/posts-list';
 import { Suspense } from 'react';
 import { Await, defer, useLoaderData } from 'react-router-dom';
 

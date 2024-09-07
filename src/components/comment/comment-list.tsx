@@ -1,5 +1,5 @@
-import type { Comment } from '@/components/comment-card';
-import CommentCard from '@/components/comment-card';
+import type { Comment } from '@/components/comment/comment-card';
+import CommentCard from '@/components/comment/comment-card';
 import { useAsyncValue } from 'react-router-dom';
 
 export default function CommentList() {
