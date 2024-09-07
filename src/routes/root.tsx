@@ -12,7 +12,7 @@ function App() {
 				defaultTheme='dark'
 				storageKey='vite-ui-theme'
 			>
-				<div className='absolute top-4 right-4'>
+				<div className='fixed top-4 right-4'>
 					<ModeToggle />
 				</div>
 				<div className='flex flex-row align-middle items-center justify-between mb-4 container mt-4'>

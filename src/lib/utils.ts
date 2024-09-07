@@ -12,7 +12,10 @@ type Comment = {
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
-const time = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+const time = new Intl.RelativeTimeFormat('en', {
+	numeric: 'auto',
+	style: 'long',
+});
 export function formatDate(date: Date) {
 	return time.format(
 		-1 * Math.round((Date.now() - date.getTime()) / 86400000),

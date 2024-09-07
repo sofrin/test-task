@@ -20,9 +20,9 @@ export default function Post() {
 				<CommentCard
 					by='by'
 					id={1}
-					kidsIds={[1, 2, 3, 4, 5, 6]}
+					kids={[11123]}
 					text='text'
-					time={new Date()}
+					time={new Date().getTime()}
 				></CommentCard>
 			</div>
 		</div>
