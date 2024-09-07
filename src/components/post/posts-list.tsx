@@ -1,13 +1,18 @@
 import PostCard from '@/components/post/post-card';
 import type { Post } from '@/routes/home';
+import { useMemo } from 'react';
 import { useAsyncValue } from 'react-router-dom';
 
 export default function PostsList() {
 	const posts = useAsyncValue() as Post[];
+	const sortedPosts = useMemo(
+		() => posts.sort((a, b) => b.time - a.time),
+		[posts],
+	);
 
 	return (
 		<>
-			{posts?.map((post) => (
+			{sortedPosts?.map((post) => (
 				<PostCard
 					key={post.id}
 					id={post.id}
