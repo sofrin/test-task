@@ -1,7 +1,6 @@
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
@@ -15,9 +14,9 @@ export default function CommentSkeleton() {
 				<CardTitle>
 					<Skeleton className='w-1/12 h-full' />
 				</CardTitle>
-				<CardDescription>
+				<div className='h-full'>
 					<Skeleton className='w-1/12 h-full' />
-				</CardDescription>
+				</div>
 			</CardHeader>
 			<CardContent>
 				<Skeleton className='w-1/5 h-full' />

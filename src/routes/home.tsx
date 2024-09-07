@@ -16,11 +16,9 @@ export type Post = {
 	kids: number[];
 };
 export async function loader() {
-	const data = (
-		await (
-			await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
-		).json()
-	).catch((err: Error) => console.log(err));
+	const data = await (
+		await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+	).json();
 	const postsData = data.slice(0, 99).map(async (id: number) => {
 		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
 			(res) => res.json().catch((err) => console.log(err)),
