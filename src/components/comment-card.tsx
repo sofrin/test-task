@@ -21,7 +21,10 @@ export default function CommentCard({ by, id, kidsIds, text, time }: Props) {
 	const formattedDate = formatDate(time);
 	const [showReplies, setShowReplies] = useState(false);
 	return (
-		<Card key={id}>
+		<Card
+			className=' border-0 border-l-2  border-primary  m-1'
+			key={id}
+		>
 			<CardHeader>
 				<CardTitle>{by}</CardTitle>
 				<CardDescription>{formattedDate}</CardDescription>
@@ -41,13 +44,18 @@ export default function CommentCard({ by, id, kidsIds, text, time }: Props) {
 				</CardFooter>
 			)}
 			{showReplies && (
-				<Card>
-					<CardContent>
-						{kidsIds.map((id) => (
-							<div>{id}</div>
-						))}
-					</CardContent>
-				</Card>
+				<div className='ml-4'>
+					{kidsIds.map((id) => (
+						<CommentCard
+							key={id}
+							by='username'
+							id={id}
+							kidsIds={[1, 2]}
+							text='comment text'
+							time={new Date()}
+						/>
+					))}
+				</div>
 			)}
 		</Card>
 	);
