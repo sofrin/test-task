@@ -4,6 +4,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import { formatDate, pluralize } from '@/lib/utils';
 
 type Props = {
 	title: string;
@@ -13,13 +14,6 @@ type Props = {
 	totalComments: number;
 	url: string;
 };
-const time = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-const pluralize = (
-	count: number,
-	singular: string,
-	plural: string,
-	zero: string,
-) => (count === 0 ? zero : count === 1 ? singular : plural);
 
 export default function PostCard({
 	title,
@@ -29,10 +23,7 @@ export default function PostCard({
 	totalComments,
 	url,
 }: Props) {
-	const formattedDate = time.format(
-		-1 * Math.round((Date.now() - date.getTime()) / 86400000),
-		'day',
-	);
+	const formattedDate = formatDate(date);
 	return (
 		<Card>
 			<CardHeader className='p-3'>
