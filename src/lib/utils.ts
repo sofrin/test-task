@@ -1,6 +1,14 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-
+type Comment = {
+	by: string;
+	id: number;
+	kids: number[];
+	parent: number;
+	text: string;
+	time: Date;
+	type: string;
+};
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
@@ -18,3 +26,13 @@ export const pluralize = (
 	plural: string,
 	zero?: string,
 ) => (count === 0 ? zero : count === 1 ? singular : plural);
+
+export async function getCommentData(id: number) {
+	const res = fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+	try {
+		const res1 = await res;
+		return (await res1.json()) as Comment;
+	} catch (err) {
+		return console.log(err);
+	}
+}
