@@ -6,22 +6,26 @@ import { Suspense } from 'react';
 import PostSkeleton from '@/components/post/post-skeleton';
 import CommentSkeleton from '@/components/comment/comment-skeleton';
 import CommentList from '@/components/comment/comment-list';
+import { useLivePageData } from '@/lib/utils';
 /// @ts-expect-error idk why typing params throws error in main
 export async function loader({ params }) {
 	const data = fetch(
 		`https://hacker-news.firebaseio.com/v0/item/${params.postId}.json`,
-	).then((res) => res.json() as Promise<Post>);
-	const commentsData = (await data).kids?.map(async (id) => {
-		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
-			(res) => res.json() as Promise<Comment>,
-		);
+	)
+		.then((res) => res.json() as Promise<Post>)
+		.catch((err) => console.log(err));
+	const commentsData = (await data)?.kids?.map(async (id) => {
+		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+			.then((res) => res.json() as Promise<Comment>)
+			.catch((err) => console.log(err));
 	});
-
-	const comments = Promise.all(commentsData);
+	if (!commentsData) return defer({ data, comments: [] });
+	const comments = Promise.all(commentsData).catch((err) => console.log(err));
 	return defer({ data, comments });
 }
 
 export default function Post() {
+	useLivePageData();
 	const { data, comments } = useLoaderData() as {
 		data: Post;
 		comments: Comment[];

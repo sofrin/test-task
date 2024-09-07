@@ -1,5 +1,6 @@
 import PostSkeleton from '@/components/post/post-skeleton';
 import PostsList from '@/components/post/posts-list';
+import { useLivePageData } from '@/lib/utils';
 import { Suspense } from 'react';
 import { Await, defer, useLoaderData } from 'react-router-dom';
 
@@ -15,18 +16,21 @@ export type Post = {
 	kids: number[];
 };
 export async function loader() {
-	const data = (await (
-		await fetch('https://hacker-news.firebaseio.com/v0/newstories.json')
-	).json()) as number[];
+	const data = (
+		await (
+			await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+		).json()
+	).catch((err: Error) => console.log(err));
 	const postsData = data.slice(0, 99).map(async (id: number) => {
 		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
-			(res) => res.json(),
+			(res) => res.json().catch((err) => console.log(err)),
 		);
 	});
-	const posts = Promise.all(postsData);
+	const posts = Promise.all(postsData).catch((err) => console.log(err));
 	return defer({ posts });
 }
 export default function Home() {
+	useLivePageData();
 	const { posts } = useLoaderData() as { posts: Post[] };
 	return (
 		<div className='container mt-4'>

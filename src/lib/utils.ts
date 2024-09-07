@@ -1,4 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
+import { useEffect } from 'react';
+import { useRevalidator } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 type Comment = {
 	by: string;
@@ -38,4 +40,17 @@ export async function getCommentData(id: number) {
 	} catch (err) {
 		return console.log(err);
 	}
+}
+export function useLivePageData() {
+	const revalidator = useRevalidator();
+
+	useEffect(() => {
+		if (revalidator.state === 'idle') {
+			revalidator.revalidate();
+		}
+		const interval = setInterval(() => {
+			revalidator.revalidate();
+		}, 60 * 1000);
+		return () => clearInterval(interval);
+	}, [revalidator]);
 }

@@ -2,10 +2,11 @@ import { ModeToggle } from '@/components/mode-toggle';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Button } from '@/components/ui/button';
 import { RefreshCcw } from 'lucide-react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useRevalidator } from 'react-router-dom';
 import { AnimatedLink } from '../components/animated-link';
 
 function App() {
+	const revalidator = useRevalidator();
 	return (
 		<>
 			<ThemeProvider
@@ -27,6 +28,7 @@ function App() {
 						size='icon'
 						variant='outline'
 						className='group'
+						onClick={() => revalidator.revalidate()}
 					>
 						<RefreshCcw className='h-4 w-4 group-hover:animate-spin' />
 					</Button>
