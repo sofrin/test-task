@@ -50,7 +50,11 @@ export default function PostCard({
 					) : null}
 				</CardTitle>
 				<CardDescription>
-					{rating} points by {author} {formattedDate} |{' '}
+					{rating} points by {author}{' '}
+					<span title={new Date(time * 1000).toISOString().split('T')[0]}>
+						{formattedDate}
+					</span>{' '}
+					|{' '}
 					{pluralize(
 						totalComments,
 						'1 comment',

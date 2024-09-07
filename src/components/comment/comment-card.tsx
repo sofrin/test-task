@@ -65,7 +65,11 @@ export default function CommentCard({
 		>
 			<CardHeader>
 				<CardTitle>{by}</CardTitle>
-				<CardDescription>{formattedDate}</CardDescription>
+				<CardDescription
+					title={new Date(time * 1000).toISOString().split('T')[0]}
+				>
+					{formattedDate}
+				</CardDescription>
 			</CardHeader>
 			<CardContent>{text}</CardContent>
 			{kidsIds?.length > 0 && (
@@ -85,7 +89,6 @@ export default function CommentCard({
 			{showReplies && loading === false && (
 				<div className='ml-4'>
 					{kidsData.map((kid) => {
-
 						return (
 							<CommentCard
 								key={kid.id}
