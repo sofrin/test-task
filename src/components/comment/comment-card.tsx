@@ -85,7 +85,6 @@ export default function CommentCard({
 			{showReplies && loading === false && (
 				<div className='ml-4'>
 					{kidsData.map((kid) => {
-						console.log(`kid:`, kid);
 
 						return (
 							<CommentCard

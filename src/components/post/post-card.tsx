@@ -29,7 +29,7 @@ export default function PostCard({
 	page,
 }: Props) {
 	const formattedDate = formatDate(new Date(time ?? 1 * 1000));
-	console.log(`id`, id);
+
 
 	return (
 		<Card>

@@ -4,7 +4,6 @@ import { useAsyncValue } from 'react-router-dom';
 
 export default function PostsList() {
 	const posts = useAsyncValue() as Post[];
-	console.log(`posts`, posts);
 
 	return (
 		<>
