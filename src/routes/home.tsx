@@ -30,7 +30,7 @@ export async function loader() {
 		);
 	});
 
-	const posts = await Promise.all(postsData).catch((err) => console.log(err));
+	const posts = Promise.all(postsData).catch((err) => console.log(err));
 	const posts1 = Promise.all(postsData1).catch((err) => console.log(err));
 	return defer({ posts, posts1 });
 }

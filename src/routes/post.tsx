@@ -11,16 +11,24 @@ import { useLivePageData } from '@/lib/utils';
 export async function loader({ params }) {
 	const data = fetch(
 		`https://hacker-news.firebaseio.com/v0/item/${params.postId}.json`,
-	)
-		.then((res) => res.json() as Promise<Post>)
-		.catch((err) => console.log(err));
-	const commentsData = (await data)?.kids?.map(async (id) => {
-		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-			.then((res) => res.json() as Promise<Comment>)
-			.catch((err) => console.log(err));
-	});
-	if (!commentsData) return defer({ data, comments: [] });
-	const comments = Promise.all(commentsData).catch((err) => console.log(err));
+	).then((res) => res.json() as Promise<Post>);
+
+	const comments = data.then((res) =>
+		Promise.all(
+			res.kids.map(async (id) => {
+				return fetch(
+					`https://hacker-news.firebaseio.com/v0/item/${id}.json`,
+				).then((res) => res.json() as Promise<Comment>);
+			}),
+		),
+	);
+	// const commentsData = (await data)?.kids?.map(async (id) => {
+	// 	return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+	// 		.then((res) => res.json() as Promise<Comment>)
+	// 		.catch((err) => console.log(err));
+	// });
+	// if (!commentsData) return defer({ data, comments: [] });
+	// const comments = Promise.all(commentsData).catch((err) => console.log(err));
 	return defer({ data, comments });
 }
 
