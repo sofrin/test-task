@@ -31,7 +31,10 @@ export default function PostCard({
 	const formattedDate = formatDate(new Date(time * 1000));
 
 	return (
-		<Card>
+		<Card
+			key={id}
+			style={{ viewTransitionName: `${id}` }}
+		>
 			<CardHeader className='p-3'>
 				<CardTitle>
 					<AnimatedLink to={page ? `#` : `/posts/${id}`}>{title} </AnimatedLink>
