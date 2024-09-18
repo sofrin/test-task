@@ -1,12 +1,12 @@
+import CommentList from '@/components/comment/comment-list';
+import CommentSkeleton from '@/components/comment/comment-skeleton';
 import PostCard from '@/components/post/post-card';
-import { type Comment } from '../components/comment/comment-card';
-import { defer, useLoaderData, Await } from 'react-router-dom';
+import PostSkeleton from '@/components/post/post-skeleton';
+import { useLivePageData } from '@/lib/utils';
 import type { Post } from '@/routes/home';
 import { Suspense } from 'react';
-import PostSkeleton from '@/components/post/post-skeleton';
-import CommentSkeleton from '@/components/comment/comment-skeleton';
-import CommentList from '@/components/comment/comment-list';
-import { useLivePageData } from '@/lib/utils';
+import { Await, defer, useLoaderData } from 'react-router-dom';
+import { type Comment } from '../components/comment/comment-card';
 /// @ts-expect-error idk why typing params throws error in main
 export async function loader({ params }) {
 	const data = fetch(
@@ -22,17 +22,10 @@ export async function loader({ params }) {
 			}),
 		),
 	);
-	// const commentsData = (await data)?.kids?.map(async (id) => {
-	// 	return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-	// 		.then((res) => res.json() as Promise<Comment>)
-	// 		.catch((err) => console.log(err));
-	// });
-	// if (!commentsData) return defer({ data, comments: [] });
-	// const comments = Promise.all(commentsData).catch((err) => console.log(err));
 	return defer({ data, comments });
 }
 
-export default function Post() {
+export function Post() {
 	useLivePageData();
 	const { data, comments } = useLoaderData() as {
 		data: Post;

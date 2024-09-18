@@ -34,7 +34,7 @@ export async function loader() {
 	const posts1 = Promise.all(postsData1).catch((err) => console.log(err));
 	return defer({ posts, posts1 });
 }
-export default function Home() {
+export function Home() {
 	useLivePageData();
 	const { posts, posts1 } = useLoaderData() as {
 		posts: Post[];
