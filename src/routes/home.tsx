@@ -19,12 +19,12 @@ export async function loader() {
 	const data = await (
 		await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
 	).json();
-	const postsData = data.slice(0, 19).map(async (id: number) => {
+	const postsData = data.slice(0, 9).map(async (id: number) => {
 		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
 			(res) => res.json().catch((err) => console.log(err)),
 		);
 	});
-	const postsData1 = data.slice(20, 99).map(async (id: number) => {
+	const postsData1 = data.slice(10, 99).map(async (id: number) => {
 		return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
 			(res) => res.json().catch((err) => console.log(err)),
 		);
@@ -43,7 +43,7 @@ export default function Home() {
 	return (
 		<div className='container mt-4'>
 			<Suspense
-				fallback={new Array(20).fill('_').map((_, i) => (
+				fallback={new Array(10).fill('_').map((_, i) => (
 					<PostSkeleton key={i} />
 				))}
 			>
