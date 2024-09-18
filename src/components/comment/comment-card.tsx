@@ -9,6 +9,7 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { formatDate, pluralize } from '@/lib/utils';
+import parse from 'html-react-parser';
 import { useState } from 'react';
 export type Comment = {
 	by: string;
@@ -71,7 +72,7 @@ export default function CommentCard({
 					{formattedDate}
 				</CardDescription>
 			</CardHeader>
-			<CardContent>{text}</CardContent>
+			<CardContent>{parse(text)}</CardContent>
 			{kidsIds?.length > 0 && (
 				<CardFooter>
 					<Button onClick={handleLoadReplies}>
